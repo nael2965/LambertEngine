@@ -52,7 +52,7 @@
 
                     <!--Project Command-->
                     <StackPanel Orientation="Vertical" Margin="10,60">
-                        <Button Content="New Project" Style="{StaticResource ThemeButtonStyle}" />
+                        <Button Content="New Project" Style="{StaticResource ThemeButtonStyle}" Click="NewProject" />
                         <Button Content="Last Session" Style="{StaticResource OutlineButtonStyle}" />
                         <Button Content="Open ..." Style="{StaticResource OutlineButtonStyle}"/>
                     </StackPanel>
@@ -81,5 +81,26 @@
 
             </Grid>
         </Grid>
+
+
+        <Grid x:Name="PopupOverlay" Visibility="Collapsed">
+            <Rectangle Fill="Black" Opacity="0.5"/>
+            <Border Background="Transparent" CornerRadius="5" Width="800" Height="480">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <local:NewProject x:Name="NewProjectControl"/>
+                    <ContentControl x:Name="PopupContent"/>
+
+                </Grid>
+            </Border>
+        </Grid>
+
+
+
+
     </Grid>
 </Window>

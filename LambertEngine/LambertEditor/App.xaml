@@ -179,23 +179,25 @@
             <Setter Property="Background" Value="#181818"/>
             <Setter Property="Foreground" Value="#CCCCCC"/>
             <Setter Property="BorderBrush" Value="#242424"/>
-
-
+            <Setter Property="CaretBrush" Value="#CCCCCC"/><!-- 커서 색상 설정 -->
+            <Setter Property="Padding" Value="5,2"/><!-- 내부 여백 설정 -->
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TextBox">
                         <Border Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="1.25"
-                                CornerRadius="4">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="1.25"
+                        CornerRadius="4">
+                            <ScrollViewer x:Name="PART_ContentHost" 
+                                  Focusable="false" 
+                                  HorizontalScrollBarVisibility="Hidden" 
+                                  VerticalScrollBarVisibility="Hidden"
+                                  Padding="{TemplateBinding Padding}"
+                                  Margin="0"/>
                         </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            
-            
-            
         </Style>
 
 

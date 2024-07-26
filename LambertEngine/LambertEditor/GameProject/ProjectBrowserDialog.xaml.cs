@@ -20,13 +20,19 @@ namespace LambertEditor.GameProject
     /// </summary>
     public partial class ProjectBrowserDialog : Window
     {
+
+        // 초기화
         public ProjectBrowserDialog()
         {
             InitializeComponent();
+            NewProjectControl.CloseRequested += NewProjectControl_CloseRequested;
         }
 
+        // 상태 저장용 변수
         private ToggleButton _lastCheckedButton = null;
 
+
+        // 좌측 상단 토글 버튼 컨트롤러, 상호베타적
         private void OnToggleButton_Click(object sender, RoutedEventArgs e)
         {
             if (_lastCheckedButton == null)
@@ -67,6 +73,30 @@ namespace LambertEditor.GameProject
 
             // 이벤트 처리를 여기서 중단하여 기본 토글 동작을 막음
             e.Handled = true;
+        }
+
+        // 팝업을 표시하는 메서드
+        private void ShowPopup()
+        {
+            PopupOverlay.Visibility = Visibility.Visible;
+        }
+
+        // 팝업을 닫는 메서드
+        private void ClosePopup()
+        {
+            PopupOverlay.Visibility = Visibility.Collapsed;
+        }
+
+        // 팝업 창에서의 닫는 요청
+        private void NewProjectControl_CloseRequested(object sender, EventArgs e)
+        {
+            ClosePopup();
+        }
+
+        // 새 프로젝트 이벤트
+        private void NewProject(object sender, RoutedEventArgs e)
+        {
+            ShowPopup();
         }
     }
 }

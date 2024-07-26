@@ -20,9 +20,19 @@ namespace LambertEditor.GameProject
     /// </summary>
     public partial class NewProject : UserControl
     {
+
+        public event EventHandler CloseRequested;
+
         public NewProject()
         {
             InitializeComponent();
+        }
+
+        private void Cancle(object sender, RoutedEventArgs e)
+        {
+
+            CloseRequested?.Invoke(this, EventArgs.Empty);
+
         }
     }
 }
