@@ -1,4 +1,4 @@
-﻿using LambertEditor.GameProject;
+﻿using LambertEditor.GameProjectBrowser;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
