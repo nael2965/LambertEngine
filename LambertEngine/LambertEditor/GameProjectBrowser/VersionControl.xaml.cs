@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LambertEditor.GameProject
+namespace LambertEditor.GameProjectBrowser
 {
     /// <summary>
-    /// ProjectsPage.xaml에 대한 상호 작용 논리
+    /// VersionControl.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class ProjectsPage : UserControl
+    public partial class VersionControl : UserControl
     {
-        public ProjectsPage()
+        public VersionControl()
         {
             InitializeComponent();
         }

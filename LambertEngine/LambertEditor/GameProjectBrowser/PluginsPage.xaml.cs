@@ -13,26 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LambertEditor.GameProject
+namespace LambertEditor.GameProjectBrowser
 {
     /// <summary>
-    /// NewProject.xaml에 대한 상호 작용 논리
+    /// PluginsPage.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class NewProject : UserControl
+    public partial class PluginsPage : UserControl
     {
-
-        public event EventHandler CloseRequested;
-
-        public NewProject()
+        public PluginsPage()
         {
             InitializeComponent();
-        }
-
-        private void Cancle(object sender, RoutedEventArgs e)
-        {
-
-            CloseRequested?.Invoke(this, EventArgs.Empty);
-
         }
     }
 }

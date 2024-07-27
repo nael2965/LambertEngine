@@ -13,16 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace LambertEditor.GameProject
+namespace LambertEditor.GameProjectBrowser
 {
     /// <summary>
-    /// AssetPage.xaml에 대한 상호 작용 논리
+    /// NewProjectPopup.xaml에 대한 상호 작용 논리
     /// </summary>
-    public partial class AssetPage : UserControl
-    {
-        public AssetPage()
-        {
+    public partial class NewProjectPopup : UserControl{
+        public event EventHandler CloseRequested;
+        public NewProjectPopup(){
             InitializeComponent();
+        }
+        private void Cancle(object sender, RoutedEventArgs e){
+            CloseRequested?.Invoke(this, EventArgs.Empty);
         }
     }
 }

@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="LambertEditor.GameProjectBrowser.NewProjectPopup"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LambertEditor.GameProjectBrowser"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=local:NewProject, IsDesignTimeCreatable=True}"
+             d:DesignHeight="480" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <local:NewProject />
+    </UserControl.DataContext>
+    <Border CornerRadius="25" Background="#2A2A2A" >       
+        <StackPanel>
+            <TextBlock Text=" New Project" FontSize="24" Foreground="#bbbbbb" Margin="10"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30">
+                <ListBox Width="210" Height="250" ItemsSource="{Binding ProjectTemplates}" x:Name="tamplateListBox" SelectedIndex="0" >
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding Icon}" Margin="0,0,5,0" Width="45" Height="45"/>
+                                <TextBlock Text="{Binding ProjectType}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Border Width="360" Height="250" Margin="5,0,0,0">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding Path=SelectedItem.Screenshot, ElementName=tamplateListBox}"/>
+                    </Border.Background>
+                </Border>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="20" Margin="0,5,0,0">
+                <TextBlock Text="Project Name" Width="80" Foreground="#FFCC99"/>
+                <TextBox Style="{StaticResource TextBox}" Width="500" Text="{Binding ProjectName}"/>
+            </StackPanel>
+        
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="20" Margin="0,5 ,0,0">
+                <TextBlock Text="Project Path" Width="80" Foreground="#FFCC99"/>
+                <TextBox Style="{StaticResource TextBox}" Width="450" Text="{Binding ProjectPath}"/>
+                <Button Content="Browse" Style="{StaticResource OperationButton}"  Width="45" Margin="5,0,0,0"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="30,15">
+                <Button Content="Create" Style="{StaticResource OperationButton}"/>
+                <Button Content="Cancle" Style="{StaticResource OperationButton}" Click="Cancle"/>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl> 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace LambertEditor.GameProject
+namespace LambertEditor.GameProjectBrowser
 {
     /// <summary>
     /// ProjectBrowserDialog.xaml에 대한 상호 작용 논리
