@@ -46,7 +46,7 @@
                                       Click="OnToggleButton_Click" IsChecked="True" />
                         <ToggleButton Content="VERSION CONTROL" x:Name="AssetButton" Style="{StaticResource SidebarToggleStyle}"
                                       Click="OnToggleButton_Click" IsChecked="False"/>
-                        <ToggleButton Content="PLUGINS" x:Name="PluginsButton" Style="{StaticResource SidebarToggleStyle}"
+                        <ToggleButton Content="MODULES" x:Name="PluginsButton" Style="{StaticResource SidebarToggleStyle}"
                                       Click="OnToggleButton_Click" IsChecked="False"/>
                     </StackPanel>
 
