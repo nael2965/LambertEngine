@@ -1,8 +1,15 @@
 #pragma once
 #include "ComponentsCommon.h"
 
-namespace lambnert::transform {
-	DEFINE_TYPED_ID(transform_id);
+namespace lambert::transform {
 
-	transform_id create_tranform(const init_info& info, game_entity::entity_id entity_id);
+	struct init_info
+	{
+		F32 position[3]{};
+		F32 rotation[4]{};
+		F32 scale[3]{1.f,1.f,1.f};
+	};
+	
+	component create_transform(const init_info& info, game_entity::entity entity);
+	void remove_transform(component c);
 }
