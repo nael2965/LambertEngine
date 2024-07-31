@@ -18,10 +18,10 @@ constexpr U32	U32_invalid_ID	{ 0xffff'ffffui32 };
 constexpr U16	U16_invalid_ID	{ 0xffffui16 };
 constexpr U8	U8_invalid_ID	{ 0xffui8 };
 
-constexpr S64	S64_invalid_ID	{ 0xffff'ffff'ffff'ffffui64 };
-constexpr S32	S32_invalid_ID	{ 0xffff'ffffui32 };
-constexpr S16	S16_invalid_ID	{ 0xffffui16 };
-constexpr S8	S8_invalid_ID	{ 0xffui8 };
+constexpr S64	S64_invalid_ID	{ 0xffff'ffff'ffff'ffffi64 };
+constexpr S32	S32_invalid_ID	{ 0xffff'ffffi32 };
+constexpr S16	S16_invalid_ID	{ 0xffffi16 };
+constexpr S8	S8_invalid_ID	{ 0xffi8 };
 
 
 
