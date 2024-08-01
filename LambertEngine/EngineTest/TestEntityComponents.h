@@ -3,13 +3,80 @@
 #include "Test.h"
 #include "../Engine/Components/Entity.h"
 #include "../Engine/Components/Transform.h"
-//#include "../Engine/Utilities/Utilities.h"
+
+#include <ctime>
+#include <iostream>
 
 using namespace lambert;
 class engine_test : public test
 {
 public:
-    bool initialize() override{ return true; }
-    void run() override{}
+    bool initialize() override
+    {
+        srand((U32)time(nullptr));
+        return true;
+    }
+    void run() override
+    {
+        do {
+           for (U32 i{ 0 }; i < 10000; ++i)
+           {
+               create_random();
+               remove_random();
+               _num_entities = (U32)_entities.size();
+           } 
+        }while (getchar() != 'q');
+    }
     void shutdown() override{}
+
+private:
+    void create_random()
+    {
+        U32 count = rand() % 20;
+        if(_entities.empty()) count = 1000;
+        transform::init_info transform_info{};
+        game_entity::entity_info entity_info
+        {
+            &transform_info,
+        };
+        
+        while (count < 1)
+        {
+            ++_added;
+            game_entity::entity entity{ game_entity:: create_game_entity(entity_info) };
+            assert(entity.is_valid() && id::is_valid(entity.get_id()));
+            _entities.push_back(entity);
+            assert(game_entity::is_alive(entity));
+            --count;
+        }
+    }
+    void remove_random()
+    {
+        U32 count = rand() % 20;
+        if (_entities.size() < 1000) return;
+        while (count > 0)
+        {
+            const U32 index{(U32)rand() % (U32)_entities.size()};
+            const game_entity::entity entity{ _entities[index] };
+            assert(entity.is_valid() && id::is_valid(entity.get_id()));
+            if (entity.is_valid())
+            {
+                game_entity::remove_game_entity(entity);
+                _entities.erase(_entities.begin() + index);
+                assert(!game_entity::is_alive(entity));
+            }
+            --count;
+        }
+    }
+void print_resault()
+    {
+        std::cout << "Entities created: " << _added << "\n";
+        std::cout << "Entities deleted: " << _removed << "\n";
+    }
+    
+    utl::vector<game_entity::entity> _entities;
+
+    U32 _added{ 0 };
+    U32 _removed{ 0 };
+    U32 _num_entities{ 0 };
 };
