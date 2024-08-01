@@ -32,7 +32,7 @@ namespace lambert::transform
 
     void remove_transform(component c)
     {
-        assert(c.is_valid);
+        assert(c.is_valid());
     }
 
     math::V4 component::rotation() const
