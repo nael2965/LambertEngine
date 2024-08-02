@@ -6,7 +6,7 @@ namespace lambert::id
 	using id_type = U32;
 
 	namespace internal{	
-	constexpr U32 generation_bits{ 8 };
+	constexpr U32 generation_bits{ 10 };
 	constexpr U32 index_bits{ sizeof(id_type) * 8 - generation_bits };
 	constexpr id_type index_mask{ (id_type{1} << index_bits) - 1 };
 	constexpr id_type generation_mask{ (id_type{1} << generation_bits) - 1 };
@@ -14,18 +14,6 @@ namespace lambert::id
 	
 	constexpr id_type invalid_id{ id_type(-1) };
 	constexpr U32 min_deleted_elements{ 1024 }; 
-
-	/*
-	template <bool condition, class t1, class t2>
-	struct conditional {
-		using type = t1;
-	};
-
-	template <class t1, class t2>
-	struct conditional<false, t1, t2> {
-		using type = t2;
-	};
-	*/
 	
 	using generation_type = std::conditional_t<internal::generation_bits <= 16, std::conditional_t <internal::generation_bits <= 8, U8, U16>, U32>;
 	static_assert(sizeof(generation_type) * 8 >= internal::generation_bits);
@@ -53,7 +41,7 @@ namespace lambert::id
 		new_generation(id_type id)
 	{
 		const id_type generation{ id::generation(id) + 1 };
-		assert(generation < ((U64)1<<internal::generation_bits)-1);
+		assert(generation < (((U64)1<<internal::generation_bits) - 1));
 		return index(id) | (generation << internal::index_bits);
 	}
 

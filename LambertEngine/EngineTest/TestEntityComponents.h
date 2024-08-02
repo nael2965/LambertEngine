@@ -24,7 +24,8 @@ public:
                create_random();
                remove_random();
                _num_entities = (U32)_entities.size();
-           } 
+           }
+            print_resault();
         }while (getchar() != 'q');
     }
     void shutdown() override{}
@@ -40,7 +41,7 @@ private:
             &transform_info,
         };
         
-        while (count < 1)
+        while (count > 0)
         {
             ++_added;
             game_entity::entity entity{ game_entity:: create_game_entity(entity_info) };
@@ -64,6 +65,7 @@ private:
                 game_entity::remove_game_entity(entity);
                 _entities.erase(_entities.begin() + index);
                 assert(!game_entity::is_alive(entity));
+                ++ _removed;
             }
             --count;
         }
