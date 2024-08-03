@@ -9,14 +9,4 @@ Personal 3D Game Engine Project
 ## Program Structure
 `Engine` `Editor` `Browser UI`
 
-## Feature (TODO)
-- Game Tick
-- Rendering
-  - Defferd Rendering
-  - Volumetric Lighting
-  - SDF
-  - Shadow
-  - Multiple Light
-  - PBR shader
-
 `2024.07.26 Dev Started`
