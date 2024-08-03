@@ -34,17 +34,18 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="20" Margin="0,5,0,0">
                 <TextBlock Text="Project Name" Width="80" Foreground="#FFCC99"/>
-                <TextBox Style="{StaticResource TextBox}" Width="500" Text="{Binding ProjectName}"/>
+                <TextBox Style="{StaticResource TextBox}" Width="500" Text="{Binding ProjectName, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="20" Margin="0,5 ,0,0">
                 <TextBlock Text="Project Path" Width="80" Foreground="#FFCC99"/>
-                <TextBox Style="{StaticResource TextBox}" Width="450" Text="{Binding ProjectPath}"/>
+                <TextBox Style="{StaticResource TextBox}" Width="450" Text="{Binding ProjectPath, UpdateSourceTrigger=PropertyChanged}"/>
                 <Button Content="Browse" Style="{StaticResource OperationButton}"  Width="45" Margin="5,0,0,0"/>
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="30,15">
-                <Button Content="Create" Style="{StaticResource OperationButton}"/>
+                <TextBlock Text="{Binding ErrorMsg}" VerticalAlignment="Center" Foreground="Silver"/>
+                <Button Content="Create" Style="{StaticResource OperationButton}" IsEnabled="{Binding IsValid}"/>
                 <Button Content="Cancle" Style="{StaticResource OperationButton}" Click="Cancle"/>
             </StackPanel>
         </StackPanel>

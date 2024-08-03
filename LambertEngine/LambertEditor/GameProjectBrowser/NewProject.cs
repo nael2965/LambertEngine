@@ -31,14 +31,10 @@ namespace LambertEditor.GameProjectBrowser
         public string IconFilePath { get; set; }
         public string ScreenshotFilePath { get; set; }
         public string ProjectFilePath { get; set; }
-
-
-
     }
 
     class NewProject : ViewModelBase
     {
-
         //TODO: Get Engine installation path
         private readonly string _templatePath = @"..\..\LambertEditor\ProjectTemplates\";
 
@@ -52,6 +48,7 @@ namespace LambertEditor.GameProjectBrowser
                 {
                     _projectName = value;
                     OnPropertyChanged(nameof(ProjectName));
+                    ValidateProjectPath();
                 }
             }
         }
@@ -66,15 +63,129 @@ namespace LambertEditor.GameProjectBrowser
                 {
                     _projectPath = value;
                     OnPropertyChanged(nameof(ProjectPath));
+                    ValidateProjectPath();
                 }
             }
         }
 
+        private bool _isValid;
+        public bool IsValid
+        {
+            get => _isValid;
+            set
+            {
+                if (_isValid != value)
+                {
+                    _isValid = value;
+                    OnPropertyChanged(nameof(IsValid));
+                }
+            }
+        }
 
+        private string _errorMsg;
+        public string ErrorMsg
+        {
+            get => _errorMsg;
+            set
+            {
+                if (_errorMsg != value)
+                {
+                    _errorMsg = value;
+                    OnPropertyChanged(nameof(ErrorMsg));
+                }
+            }
+        }
+        
         private ObservableCollection<ProjectTemplate> _projectTemplate = new ObservableCollection<ProjectTemplate>();
         public ReadOnlyObservableCollection<ProjectTemplate> ProjectTemplates
         { get; }
 
+        private bool ValidateProjectPath()
+        {
+            IsValid = false;
+            
+            // 프로젝트 이름 검증
+            if (string.IsNullOrWhiteSpace(_projectName?.Trim()))
+            {
+                ErrorMsg = "Type in a Project Name.";
+                return false;
+            }
+            
+            if (_projectName.IndexOfAny(Path.GetInvalidFileNameChars()) != -1)
+            {
+                ErrorMsg = "Invalid character(s) used in Project Name.";
+                return false;
+            }
+
+            // 프로젝트 경로 검증
+            if (string.IsNullOrWhiteSpace(_projectPath?.Trim()))
+            {
+                ErrorMsg = "Select a valid project folder.";
+                return false;
+            }
+
+            try
+            {
+                var fullPath = Path.GetFullPath(Path.Combine(_projectPath, _projectName));
+
+                // 경로 길이 검사
+                if (fullPath.Length > 260) {
+                    ErrorMsg = "Path is too long.";
+                    return false;
+                }
+
+                // 루트 드라이브 존재 여부 확인
+                var root = Path.GetPathRoot(fullPath);
+                if (string.IsNullOrEmpty(root) || !Directory.Exists(root)) {
+                    ErrorMsg = "Invalid drive or network path.";
+                    return false;
+                }
+
+                // 부적절한 문자 검사
+                if (fullPath.IndexOfAny(Path.GetInvalidPathChars()) != -1) {
+                    ErrorMsg = "Invalid character(s) used in Project Path.";
+                    return false;
+                }
+
+                // 경로 존재 여부 및 비어있는지 확인
+                if (Directory.Exists(fullPath)) {
+                    if (Directory.EnumerateFileSystemEntries(fullPath).Any()) {
+                        ErrorMsg = "Selected project folder already exists and is not empty.";
+                        return false;
+                    }
+                }
+                else {
+                    // 상위 디렉토리 접근 권한 확인
+                    var parentDir = Directory.GetParent(fullPath);
+                    if (parentDir != null && !HasWriteAccessToFolder(parentDir.FullName)) {
+                        ErrorMsg = "No write permission to the selected folder.";
+                        return false;
+                    }
+                }
+
+                // 모든 검증을 통과
+                ErrorMsg = string.Empty;
+                IsValid = true;
+                return true;
+            }
+            catch (Exception ex) {
+                ErrorMsg = $"Invalid project path: {ex.Message}";
+                return false;
+            }
+        }
+
+        private bool HasWriteAccessToFolder(string folderPath) {
+            try {
+                // 임시 파일 생성 시도
+                var tempFilePath = Path.Combine(folderPath, Path.GetRandomFileName());
+                using (File.Create(tempFilePath)) { }
+                File.Delete(tempFilePath);
+                return true;
+            }
+            catch {
+                return false;
+            }
+        }
         public NewProject()
         {
             ProjectTemplates = new ReadOnlyObservableCollection<ProjectTemplate>(_projectTemplate);
@@ -93,6 +204,7 @@ namespace LambertEditor.GameProjectBrowser
 
                     _projectTemplate.Add(template);
                 }   
+                ValidateProjectPath();
             }
             catch(Exception ex)
             {
@@ -101,14 +213,4 @@ namespace LambertEditor.GameProjectBrowser
             }
         }
     }
-
-
-
-
-
-
-
-
-
-
 }
