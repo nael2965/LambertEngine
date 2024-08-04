@@ -326,11 +326,15 @@ internal class NewProject : ViewModelBase
                 Debug.WriteLine(
                     $"스크린샷 파일이 존재하지 않습니다: {template.ScreenshotFilePath} (Screenshot file does not exist: {template.ScreenshotFilePath})");
             }
-
-            var project = new Project(ProjectName, path);
-            var projectFilePath = Path.Combine(path, ProjectName + Project.Extension);
-            Serializer.ToFile(project, projectFilePath);
-            Debug.WriteLine($"프로젝트 파일 생성: {projectFilePath} (Project file created: {projectFilePath})");
+            // var project = new Project(ProjectName, path);
+            // var projectFilePath = Path.Combine(path, ProjectName + Project.Extension);
+            // Serializer.ToFile(project, projectFilePath);
+            // Debug.WriteLine($"프로젝트 파일 생성: {projectFilePath} (Project file created: {projectFilePath})");
+            
+            var projectXml = File.ReadAllText(template.ProjectFilePath);
+            projectXml = string.Format(projectXml, ProjectName, ProjectPath);
+            var projectPath = Path.GetFullPath(Path.Combine(path, $"{ProjectName}{Project.Extension}"));
+            File.WriteAllText(projectPath, projectXml);
 
             return path;
         }

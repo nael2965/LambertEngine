@@ -1,11 +1,14 @@
 ﻿using System.Diagnostics;
+using System.Runtime.Serialization;
 using LambertEditor.Common;
 
 namespace LambertEditor.GameProjectBrowser
 {
+    [DataContract]
     public class Scene : ViewModelBase
     {
         private string _name;
+        [DataMember]
         public string Name
         {
             get=>_name;
@@ -18,7 +21,7 @@ namespace LambertEditor.GameProjectBrowser
                 }
             }
         }
-
+        [DataMember]
         public Project Project { get; private set; }
 
         public Scene(Project project, string name)
