@@ -6,6 +6,10 @@
              xmlns:local="clr-namespace:LambertEditor.GameProjectBrowser"
              mc:Ignorable="d" 
              d:DesignHeight="880" d:DesignWidth="1100">
+    <UserControl.DataContext>
+        <local:OpenProject/>
+    </UserControl.DataContext>
+    
     <StackPanel Background="#2A2A2A">
         
         <!--header-->
