@@ -57,7 +57,16 @@
             </StackPanel>
             
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="50">
-                <ListBox Width="195" Height="250"/>
+                <ListBox Width="195" Height="250" ItemsSource="{Binding Projects}" x:Name="ProjectsListBox" SelectedIndex="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding Icon}" Margin="0,0,5,0" Width="45" Height="45"/>
+                                <TextBlock Text="{Binding ProjectName}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
                 <Border Width="195" Height="250" Margin="5,0,0,0"/>
             </StackPanel>
 

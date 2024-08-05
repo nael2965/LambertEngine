@@ -25,8 +25,15 @@ namespace LambertEditor.GameProjectBrowser
         // 초기화
         public ProjectBrowserDialog()
         {
+            Debug.WriteLine("프로젝트 브라우저 다이얼로그 초기화 (Initializing Project Browser Dialog)");
             InitializeComponent();
             NewProjectControl.CloseRequested += NewProjectControl_CloseRequested;
+            
+            // 프로젝트 데이터 로드
+            OpenProject.ReadProjectData();
+    
+            // 로드된 프로젝트 수 확인
+            Debug.WriteLine($"로드된 프로젝트 수: {OpenProject.Projects.Count}(Loaded Project Count: {OpenProject.Projects.Count})");
         }
 
         // 상태 저장용 변수

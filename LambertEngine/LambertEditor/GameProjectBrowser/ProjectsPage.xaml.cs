@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace LambertEditor.GameProjectBrowser
 {
-    /// <summary>
-    /// ProjectsPage.xaml에 대한 상호 작용 논리
-    /// </summary>
     public partial class ProjectsPage : UserControl
     {
         public ProjectsPage()
