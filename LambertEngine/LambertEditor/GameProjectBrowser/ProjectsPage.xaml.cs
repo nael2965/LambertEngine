@@ -34,19 +34,22 @@ namespace LambertEditor.GameProjectBrowser
             }
 
             var project = OpenProject.Open(selectedItem);
-            bool dialogResult = false;
-            var win = Window.GetWindow(this);
             if (project != null)
             {
-                dialogResult = true;
-                Debug.WriteLine("프로젝트 선택 됨.");
+                Debug.WriteLine("프로젝트 열기 성공.");
+                var window = Window.GetWindow(this) as ProjectBrowserDialog;
+                if (window != null)
+                {
+                    window.DialogResult = true;
+                    window.DataContext = project;
+                    window.Close();
+                }
             }
             else
             {
                 Debug.WriteLine("프로젝트 열기 실패.");
+                MessageBox.Show("프로젝트를 열 수 없습니다.", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            win.DialogResult = dialogResult;
-            win.Close();
         }
     }
 }
