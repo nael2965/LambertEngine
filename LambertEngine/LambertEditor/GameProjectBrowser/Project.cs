@@ -59,6 +59,8 @@ public class Project : ViewModelBase
             Scenes = new ReadOnlyObservableCollection<Scene>(_scenes);
             OnPropertyChanged(nameof(Scenes));
         }
+
+        ActiveScene = Scenes.FirstOrDefault(x => x.IsActive);
     }
 
     public Project(string name, string path)

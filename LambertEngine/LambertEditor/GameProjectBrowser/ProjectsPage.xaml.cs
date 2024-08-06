@@ -26,7 +26,14 @@ namespace LambertEditor.GameProjectBrowser
         private void OnOpenProject(object sender, RoutedEventArgs e)
         {
             Debug.WriteLine("프로젝트 오픈 버튼 클릭 (Project open button clicked)");
-            var project = OpenProject.Open(ProjectsListBox.SelectedItems as ProjectData);
+            var selectedItem = ProjectsListBox.SelectedItem as ProjectData;
+            if (selectedItem == null)
+            {
+                Debug.WriteLine("선택된 프로젝트가 null임.");
+                return;
+            }
+
+            var project = OpenProject.Open(selectedItem);
             bool dialogResult = false;
             var win = Window.GetWindow(this);
             if (project != null)
@@ -36,7 +43,7 @@ namespace LambertEditor.GameProjectBrowser
             }
             else
             {
-                Debug.WriteLine("선택된 프로젝트가 null임.");
+                Debug.WriteLine("프로젝트 열기 실패.");
             }
             win.DialogResult = dialogResult;
             win.Close();

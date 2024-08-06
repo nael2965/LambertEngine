@@ -124,7 +124,7 @@ public class OpenProject : ViewModelBase
         project.Date = DateTime.Now;
         WriteProjectData();
         Debug.WriteLine($"프로젝트 열기 완료: {project.ProjectName} (Project opened: {project.ProjectName})");
-        return new Project(project.ProjectName, project.ProjectPath);
+        return Project.Load(project.FullPath);
     }
     
     static OpenProject()

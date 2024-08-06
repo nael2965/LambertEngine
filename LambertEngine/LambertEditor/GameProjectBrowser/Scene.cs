@@ -2,34 +2,45 @@
 using System.Runtime.Serialization;
 using LambertEditor.Common;
 
-namespace LambertEditor.GameProjectBrowser
+namespace LambertEditor.GameProjectBrowser;
+
+[DataContract]
+public class Scene : ViewModelBase
 {
-    [DataContract]
-    public class Scene : ViewModelBase
+    private string _name;
+
+    [DataMember]
+    public string Name
     {
-        private string _name;
-        [DataMember]
-        public string Name
+        get => _name;
+        set
         {
-            get=>_name;
-            set
+            if (_name != value)
             {
-                if (_name != value)
-                {
-                    _name = value;
-                    OnPropertyChanged(nameof(Name));
-                }
+                _name = value;
+                OnPropertyChanged(nameof(Name));
             }
         }
-        [DataMember]
-        public Project Project { get; private set; }
+    }
 
-        public Scene(Project project, string name)
+    [DataMember] public Project Project { get; private set; }
+    private bool _isActive;
+    [DataMember]
+    public bool IsActive {
+        get => _isActive;
+        set
         {
-            Debug.Assert(project != null);
-            Project = project;
-            Name = name;
+            if (_isActive)
+            {
+                _isActive = value;
+                OnPropertyChanged(nameof(IsActive));
+            }
         }
     }
+    public Scene(Project project, string name)
+    {
+        Debug.Assert(project != null);
+        Project = project;
+        Name = name;
+    }
 }
-
