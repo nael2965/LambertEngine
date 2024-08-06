@@ -31,14 +31,13 @@ namespace LambertEditor
         private void OpenProjectDialog()
         {
             var projectBrowser = new ProjectBrowserDialog();
-            if (projectBrowser.ShowDialog() == false)
+            if (projectBrowser.ShowDialog() == false || projectBrowser.DataContext == null)
             {
                 Application.Current.Shutdown();
-
             }
             else
             {
-
+                DataContext = projectBrowser.DataContext;
             }
         }
     }

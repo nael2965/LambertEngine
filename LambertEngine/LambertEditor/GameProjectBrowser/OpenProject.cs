@@ -57,6 +57,8 @@ public class OpenProject : ViewModelBase
                         if (File.Exists(project.FullPath))
                         {
                             _projects.Add(project);
+                            project.Icon = File.ReadAllBytes($@"{project.ProjectPath}\.Lambert\Icon.png");
+                            project.Screenshot = File.ReadAllBytes($@"{project.ProjectPath}\.Lambert\Screenshot.png");
                             Debug.WriteLine($"프로젝트 추가됨: {project.ProjectName}, 경로: {project.FullPath}");
                         }
                         else

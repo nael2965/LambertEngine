@@ -58,6 +58,11 @@
             
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="50">
                 <ListBox Width="195" Height="250" ItemsSource="{Binding Projects}" x:Name="ProjectsListBox" SelectedIndex="0">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <EventSetter Event="MouseDoubleClick" Handler="OnOpenProject"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
@@ -67,15 +72,17 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <Border Width="195" Height="250" Margin="5,0,0,0"/>
+                <Border Width="360" Height="250" Margin="5,0,0,0">
+                    <Border.Background>
+                        <ImageBrush ImageSource="{Binding Path=SelectedItem.Screenshot, ElementName=ProjectsListBox}"/>
+                    </Border.Background>
+                </Border>
             </StackPanel>
 
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                <Button Content="Open" Style="{StaticResource OperationButton}"/>
+                <Button Content="Open" Style="{StaticResource OperationButton}" Click="OnOpenProject"/>
                 <Button Content="Delete" Style="{StaticResource OperationButton}" Background="#772019"/>
             </StackPanel>
-
         </Grid>
-        
     </StackPanel>
 </UserControl>

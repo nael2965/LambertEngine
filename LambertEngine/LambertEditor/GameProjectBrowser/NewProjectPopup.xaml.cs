@@ -55,6 +55,7 @@ namespace LambertEditor.GameProjectBrowser
                         Debug.WriteLine("프로젝트 데이터 저장됨 (Project data saved)");
                 
                         var win = Window.GetWindow(this);
+                        win.DataContext = projectData;
                         win.DialogResult = true;
                         win.Close();
                     }
