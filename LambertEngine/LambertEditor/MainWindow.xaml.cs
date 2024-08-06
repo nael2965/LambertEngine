@@ -1,4 +1,5 @@
-﻿using LambertEditor.GameProjectBrowser;
+﻿using System.ComponentModel;
+using LambertEditor.GameProjectBrowser;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,12 +22,17 @@ namespace LambertEditor
         {
             InitializeComponent();
             Loaded += OnMainWindowLoaded;
+            Closing += OnMainWindowClosing;
         }
-
         private void OnMainWindowLoaded(object sender, RoutedEventArgs e)
         {
             Loaded -= OnMainWindowLoaded;
             OpenProjectDialog();
+        }
+        private void OnMainWindowClosing(object sender, CancelEventArgs e)
+        {
+            Closing -= OnMainWindowClosing;
+            Project.Current?.Unload();
         }
         private void OpenProjectDialog()
         {
@@ -37,6 +43,7 @@ namespace LambertEditor
             }
             else
             {
+                Project.Current?.Unload();
                 DataContext = projectBrowser.DataContext;
             }
         }
