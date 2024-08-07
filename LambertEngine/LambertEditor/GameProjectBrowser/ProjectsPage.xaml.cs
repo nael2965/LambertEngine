@@ -21,6 +21,14 @@ namespace LambertEditor.GameProjectBrowser
         public ProjectsPage()
         {
             InitializeComponent();
+
+            Loaded += (s, e) =>
+            {
+                var item =
+                    ProjectsListBox.ItemContainerGenerator.ContainerFromIndex(ProjectsListBox.SelectedIndex) as
+                        ListBoxItem;
+                item?.Focus();
+            };
         }
         
         private void OnOpenProject(object sender, RoutedEventArgs e)
