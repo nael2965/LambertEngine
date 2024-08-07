@@ -139,7 +139,6 @@ public class OpenProject : ViewModelBase
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            // throw;
         }
         
     }
