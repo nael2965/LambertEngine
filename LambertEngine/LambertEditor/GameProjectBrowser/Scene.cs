@@ -15,11 +15,9 @@ public class Scene : ViewModelBase
         get => _name;
         set
         {
-            if (_name != value)
-            {
-                _name = value;
-                OnPropertyChanged(nameof(Name));
-            }
+            if (_name == value) return;
+            _name = value;
+            OnPropertyChanged(nameof(Name));
         }
     }
 
@@ -30,11 +28,9 @@ public class Scene : ViewModelBase
         get => _isActive;
         set
         {
-            if (_isActive != true)
-            {
-                _isActive = value;
-                OnPropertyChanged(nameof(IsActive));
-            }
+            if (_isActive) return;
+            _isActive = value;
+            OnPropertyChanged(nameof(IsActive));
         }
     }
     public Scene(Project project, string name)
