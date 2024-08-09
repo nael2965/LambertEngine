@@ -30,7 +30,7 @@ public class Scene : ViewModelBase
         get => _isActive;
         set
         {
-            if (_isActive)
+            if (_isActive != true)
             {
                 _isActive = value;
                 OnPropertyChanged(nameof(IsActive));

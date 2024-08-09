@@ -22,7 +22,7 @@ public class UndoRedoAction : IUndoRedo
 
     public void Undo() => _undoAction();
 
-    public UndoRedoAction(string name)
+    private UndoRedoAction(string name)
     {
         Name = name;
     }
@@ -80,7 +80,7 @@ public class UndoRedo
     public UndoRedo()
     {
         RedoList = new ReadOnlyObservableCollection<IUndoRedo>(_redoList);
-        RedoList = new ReadOnlyObservableCollection<IUndoRedo>(_undoList);
+        UndoList = new ReadOnlyObservableCollection<IUndoRedo>(_undoList);
     }
     
 }

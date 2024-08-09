@@ -21,14 +21,16 @@ namespace LambertEditor.GameProjectBrowser
         public ProjectsPage()
         {
             InitializeComponent();
+            Loaded += ProjectsPage_Loaded;
+        }
 
-            Loaded += (s, e) =>
+        private void ProjectsPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            Debug.WriteLine("ProjectsPage 로드됨 (ProjectsPage loaded)");
+            if (ProjectsListBox != null && ProjectsListBox.Items.Count > 0)
             {
-                var item =
-                    ProjectsListBox.ItemContainerGenerator.ContainerFromIndex(ProjectsListBox.SelectedIndex) as
-                        ListBoxItem;
-                item?.Focus();
-            };
+                ProjectsListBox.SelectedIndex = 0;
+            }
         }
         
         private void OnOpenProject(object sender, RoutedEventArgs e)

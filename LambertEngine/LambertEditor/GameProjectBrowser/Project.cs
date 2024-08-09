@@ -34,7 +34,7 @@ public class Project : ViewModelBase
     }
 
     public static Project Current => Application.Current.MainWindow.DataContext as Project;
-    public static UndoRedo UndoRedo { get; } = new();
+    public static UndoRedo UndoRedo { get; } = new UndoRedo();
     public ICommand Undo { get; private set; }
     public ICommand Redo { get; private set; }
     public ICommand AddScene { get; private set; }
@@ -94,7 +94,7 @@ public class Project : ViewModelBase
                 () => _scenes.Insert(sceneIndex, x),
                 () => RemoveSceneInternal(x),
                 $"Remove {x.Name}"));
-        }, x => !x.IsActive);
+        }, x => x != null && !x.IsActive);
         
         Undo = new RelayCommand<object>(x => UndoRedo.Undo());
         Redo = new RelayCommand<object>(x => UndoRedo.Redo());

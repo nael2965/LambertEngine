@@ -29,12 +29,11 @@
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock Text="{Binding Name}"/>
                                         <Button Content="Remove" 
-                                                Command="{Binding DataContext.RemoveScene, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                                Command="{Binding DataContext.RemoveScene, RelativeSource={RelativeSource AncestorType=ItemsControl}}" 
                                                 CommandParameter="{Binding}" 
                                                 Margin="20,0" 
                                                 Focusable="False"/>
                                     </StackPanel>
-                                    <TextBlock Text="{Binding Name}"/>
                                 </Grid>
                             </Expander.Header>
                             <Border Background="Peru"/>
