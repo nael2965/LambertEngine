@@ -1,6 +1,8 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Runtime.Serialization;
 using LambertEditor.Common;
+using LambertEditor.Components;
 
 namespace LambertEditor.GameProjectBrowser;
 
@@ -23,8 +25,10 @@ public class Scene : ViewModelBase
 
     [DataMember] public Project Project { get; private set; }
     private bool _isActive;
+
     [DataMember]
-    public bool IsActive {
+    public bool IsActive
+    {
         get => _isActive;
         set
         {
@@ -33,6 +37,10 @@ public class Scene : ViewModelBase
             OnPropertyChanged(nameof(IsActive));
         }
     }
+    [DataMember(Name = nameof(GameEntities))]
+    private readonly ObservableCollection<GameEntity> _gameEntities = new();
+    public ReadOnlyObservableCollection<GameEntity> GameEntities { get; }
+
     public Scene(Project project, string name)
     {
         Debug.Assert(project != null);

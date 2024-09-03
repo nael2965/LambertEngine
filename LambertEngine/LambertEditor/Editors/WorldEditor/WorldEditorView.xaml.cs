@@ -1,5 +1,8 @@
-﻿using System.Windows;
+﻿using System.Collections.Specialized;
+using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
+using LambertEditor.GameProjectBrowser;
 
 namespace LambertEditor.Editors.WorldEditor;
 
@@ -15,6 +18,7 @@ public partial class WorldEditorView : UserControl
     {
         Loaded -= OnWorldEditorLoaded;
         Focus();
+        ((INotifyCollectionChanged)Project.UndoRedo.UndoList).CollectionChanged += (s, e) => Focus();
     }
 
     
