@@ -33,6 +33,7 @@
                                                 CommandParameter="{Binding}" 
                                                 Margin="20,0" 
                                                 Focusable="False"/>
+                                        <Button Content="+" Command="{Binding AddGameEntityCommand}" Margin="10"/>
                                     </StackPanel>
                                 </Grid>
                             </Expander.Header>

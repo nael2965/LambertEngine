@@ -28,7 +28,7 @@ public class Transform : Component
         get => _rotation;
         set
         {
-            if (_rotation)
+            if (_rotation != value)
             {
                 _rotation = value;
                 OnPropertyChanged(nameof(Rotation));
@@ -43,7 +43,7 @@ public class Transform : Component
         get => _scale;
         set
         {
-            if (_scale)
+            if (_scale != value)
             {
                 _scale = value;
                 OnPropertyChanged(nameof(Scale));
