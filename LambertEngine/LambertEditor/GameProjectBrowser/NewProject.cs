@@ -332,16 +332,16 @@ internal class NewProject : ViewModelBase
             // Debug.WriteLine($"프로젝트 파일 생성: {projectFilePath} (Project file created: {projectFilePath})");
             
             var projectXml = File.ReadAllText(template.ProjectFilePath);
-            projectXml = string.Format(projectXml, ProjectName, ProjectPath);
+            projectXml = projectXml.Replace("(0)", ProjectName).Replace("(1)", path);
             var projectPath = Path.GetFullPath(Path.Combine(path, $"{ProjectName}{Project.Extension}"));
             File.WriteAllText(projectPath, projectXml);
+            Debug.WriteLine($"프로젝트 파일 생성: {projectPath} (Project file created: {projectPath})");
 
-            return path;
+            return projectPath;
         }
         catch (Exception ex)
         {
-            Debug.WriteLine(
-                $"프로젝트 생성 중 오류 발생: {ex.Message} (Error occurred during project creation: {ex.Message})");
+            Debug.WriteLine($"프로젝트 생성 중 오류 발생: {ex.Message} (Error occurred during project creation: {ex.Message})");
             Debug.WriteLine($"스택 트레이스: {ex.StackTrace} (Stack trace: {ex.StackTrace})");
             ErrorMsg = $"프로젝트 생성 실패: {ex.Message} (Project creation failed: {ex.Message})";
             return string.Empty;

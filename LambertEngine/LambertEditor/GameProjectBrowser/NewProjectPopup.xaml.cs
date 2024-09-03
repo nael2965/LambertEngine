@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,23 +46,36 @@ namespace LambertEditor.GameProjectBrowser
                         var projectData = new ProjectData
                         {
                             ProjectName = vm.ProjectName,
-                            ProjectPath = projectPath,
+                            ProjectPath = System.IO.Path.GetDirectoryName(projectPath),
                             Date = DateTime.Now
                         };
                         Debug.WriteLine($"새 ProjectData 생성: 이름={projectData.ProjectName}, 경로={projectData.ProjectPath} (New ProjectData created: Name={projectData.ProjectName}, Path={projectData.ProjectPath})");
                         
-                        OpenProject.Open(projectData);
-                        OpenProject.WriteProjectData();
-                        Debug.WriteLine("프로젝트 데이터 저장됨 (Project data saved)");
+                        var project = OpenProject.Open(projectData);
+                        if (project != null)
+                        {
+                            Debug.WriteLine("프로젝트 열기 성공.");
+                            OpenProject.WriteProjectData();
+                            Debug.WriteLine("프로젝트 데이터 저장됨 (Project data saved)");
                 
-                        var win = Window.GetWindow(this);
-                        win.DataContext = projectData;
-                        win.DialogResult = true;
-                        win.Close();
+                            var window = Window.GetWindow(this) as ProjectBrowserDialog;
+                            if (window != null)
+                            {
+                                window.DialogResult = true;
+                                window.DataContext = project;
+                                window.Close();
+                            }
+                        }
+                        else
+                        {
+                            Debug.WriteLine("프로젝트 열기 실패.");
+                            MessageBox.Show("생성된 프로젝트를 열 수 없습니다.", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                     else
                     {
                         Debug.WriteLine("프로젝트 생성 실패 (Project creation failed)");
+                        MessageBox.Show("프로젝트 생성에 실패했습니다.", "오류", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
                 else

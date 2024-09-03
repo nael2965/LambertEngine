@@ -55,8 +55,59 @@ public class Project : ViewModelBase
 
     public static Project Load(string file)
     {
-        Debug.Assert(File.Exists(file));
-        return Serializer.FromFile<Project>(file);
+        Debug.WriteLine($"프로젝트 파일 로딩 시도: {file}");
+
+        if (string.IsNullOrEmpty(file))
+        {
+            Debug.WriteLine("프로젝트 파일 경로가 null 또는 빈 문자열입니다.");
+            throw new ArgumentException("프로젝트 파일 경로가 유효하지 않습니다.", nameof(file));
+        }
+
+        if (!File.Exists(file))
+        {
+            Debug.WriteLine($"프로젝트 파일을 찾을 수 없음: {file}");
+            throw new FileNotFoundException($"프로젝트 파일을 찾을 수 없습니다: {file}");
+        }
+
+        try
+        {
+            var project = Serializer.FromFile<Project>(file);
+        
+            if (project == null)
+            {
+                Debug.WriteLine("역직렬화된 프로젝트가 null입니다.");
+                throw new InvalidDataException("프로젝트 데이터를 로드할 수 없습니다.");
+            }
+
+            // Path와 Name 설정
+            string directoryPath = System.IO.Path.GetDirectoryName(file);
+            string projectName = System.IO.Path.GetFileNameWithoutExtension(file);
+
+            if (string.IsNullOrEmpty(directoryPath) || string.IsNullOrEmpty(projectName))
+            {
+                Debug.WriteLine("프로젝트 이름 또는 경로를 추출할 수 없습니다.");
+                throw new InvalidDataException("프로젝트 이름 또는 경로를 추출할 수 없습니다.");
+            }
+
+            // 프로젝트 객체 속성 설정
+            project.SetProjectDetails(projectName, directoryPath);
+
+            Debug.WriteLine($"프로젝트 로딩 성공: {project.Name}");
+            return project;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"프로젝트 로딩 중 예외 발생: {ex.Message}");
+            Debug.WriteLine($"스택 트레이스: {ex.StackTrace}");
+            throw;
+        }
+    }
+
+    // 프로젝트 세부 정보를 설정하는 새로운 메서드
+    public void SetProjectDetails(string name, string path)
+    {
+        Name = name;
+        Path = path;
     }
 
     public void Unload() { }
