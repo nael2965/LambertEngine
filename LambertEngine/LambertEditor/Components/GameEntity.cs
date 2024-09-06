@@ -31,10 +31,10 @@ public class GameEntity : ViewModelBase
     private readonly ObservableCollection<Component> _components = new ObservableCollection<Component>();
     public ObservableCollection<Component> Components { get; }
     
-    public GameEntity(Scene scene, ObservableCollection<Component> components)
+    public GameEntity(Scene scene/*, ObservableCollection<Component> components*/)
     {
         Debug.Assert(scene != null);
         ParentScene = scene;
-        Components = components;
+        /*Components = components;*/
     }
 }

@@ -31,13 +31,28 @@
                                         <Button Content="Remove" 
                                                 Command="{Binding DataContext.RemoveSceneCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}" 
                                                 CommandParameter="{Binding}" 
-                                                Margin="20,0" 
+                                                Margin="5" 
                                                 Focusable="False"/>
-                                        <Button Content="+" Command="{Binding AddGameEntityCommand}" Margin="10"/>
+                                        <Button Content="+"
+                                                IsEnabled="{Binding IsActive}"
+                                                Margin="10, 5"
+                                                Click="OnAddGameEntity_Button_Click"/>
                                     </StackPanel>
                                 </Grid>
                             </Expander.Header>
-                            <Border Background="Peru"/>
+                            <ListBox ItemsSource="{Binding GameEntities}" IsEnabled="{Binding IsActive}" SelectionMode="Extended">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Name}"/>
+                                            <Button Content="Remove"
+                                                    Command="{Binding ParentScene.RemoveGameEntityCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Padding="2"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         </Expander>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

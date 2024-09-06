@@ -40,7 +40,7 @@ public class Scene : ViewModelBase
         }
     }
     [DataMember(Name = nameof(GameEntities))]
-    private readonly ObservableCollection<GameEntity> _gameEntities = new();
+    private ObservableCollection<GameEntity> _gameEntities = new();
     public ReadOnlyObservableCollection<GameEntity> GameEntities { get; private set; }
 
     public ICommand AddGameEntityCommand { get; private set; }
@@ -59,6 +59,7 @@ public class Scene : ViewModelBase
     [OnDeserialized]
     private void OnDeserialized(StreamingContext context)
     {
+        //if (_gameEntities == null) _gameEntities = new ObservableCollection<GameEntity>();
         if (_gameEntities != null)
         {
             GameEntities = new ReadOnlyObservableCollection<GameEntity>(_gameEntities);
@@ -81,8 +82,8 @@ public class Scene : ViewModelBase
             RemoveGameEntity(x);
 
             Project.UndoRedo.Add(new UndoRedoAction(
-                () => RemoveGameEntity(x),
                 () => _gameEntities.Insert(entityIndex, x),
+                () => RemoveGameEntity(x),
                 $"Remove {x.Name}"));
         });
         
