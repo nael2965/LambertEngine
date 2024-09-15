@@ -18,4 +18,11 @@ public partial class ProjectLayoutView : UserControl
         var vm = btn.DataContext as Scene;
         vm.AddGameEntityCommand.Execute(new GameEntity(vm){Name = "Empty Game Entity"});
     }
+
+    private void OnGameEntities_ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var entity = (sender as ListBox)?.SelectedItems[0];
+        GameEntityView.Instance.DataContext = entity;
+    }
+
 }
